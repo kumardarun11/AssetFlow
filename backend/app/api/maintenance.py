@@ -23,10 +23,7 @@ from app.services.maintenance_service import (
     update_maintenance_status,
 )
 
-router = APIRouter(
-    prefix="/maintenance",
-    tags=["Maintenance"],
-)
+router = APIRouter()
 
 
 # Create Maintenance Request
@@ -42,7 +39,7 @@ def create_request(
     return create_maintenance_request(db, maintenance)
 
 
-# List All Maintenance Requests
+# List Maintenance Requests
 @router.get(
     "/",
     response_model=MaintenanceHistory,
@@ -76,10 +73,10 @@ def approve_request(
     db: Session = Depends(get_db),
 ):
     return approve_maintenance_request(
-    db,
-    maintenance_id,
-    data.approved_by_id,
-)
+        db,
+        maintenance_id,
+        data.approved_by_id,
+    )
 
 
 # Reject Maintenance
@@ -93,10 +90,10 @@ def reject_request(
     db: Session = Depends(get_db),
 ):
     return reject_maintenance_request(
-    db,
-    maintenance_id,
-    data.approved_by_id,
-)
+        db,
+        maintenance_id,
+        data.approved_by_id,
+    )
 
 
 # Assign Technician
@@ -110,13 +107,13 @@ def assign_technician_api(
     db: Session = Depends(get_db),
 ):
     return assign_technician(
-    db,
-    maintenance_id,
-    data.technician_id,
-)
+        db,
+        maintenance_id,
+        data.technician_id,
+    )
 
 
-# Update Status
+# Update Maintenance Status
 @router.put(
     "/{maintenance_id}/status",
     response_model=MaintenanceResponse,

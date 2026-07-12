@@ -21,10 +21,7 @@ from app.services.booking_service import (
     update_booking_status,
 )
 
-router = APIRouter(
-    prefix="/bookings",
-    tags=["Bookings"],
-)
+router = APIRouter()
 
 
 # ------------------------------------------------------

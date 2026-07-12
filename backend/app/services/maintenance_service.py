@@ -95,17 +95,17 @@ def create_maintenance_request(
 # ------------------------------------------------------
 # List Maintenance Requests
 # ------------------------------------------------------
-def list_maintenance_requests(
-    db: Session,
-):
-    return (
+def list_maintenance_requests(db: Session):
+    requests = (
         db.query(MaintenanceRequest)
-        .order_by(
-            MaintenanceRequest.created_at.desc()
-        )
+        .order_by(MaintenanceRequest.created_at.desc())
         .all()
     )
 
+    return {
+        "total": len(requests),
+        "maintenance_requests": requests,
+    }
 
 # ------------------------------------------------------
 # Get Maintenance Details
