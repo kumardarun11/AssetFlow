@@ -9,6 +9,7 @@ from app.api.auth import router as auth_router
 from app.api.users import router as users_router
 from app.api.allocations import router as allocations_router
 from app.api.transfers import router as transfers_router
+from app.api.returns import router as returns_router
 
 from app.api import booking
 from app.api import notification
@@ -53,6 +54,7 @@ app.include_router(auth_router)
 app.include_router(users_router)
 app.include_router(allocations_router)
 app.include_router(transfers_router)
+app.include_router(returns_router)
 
 
 # Booking APIs
