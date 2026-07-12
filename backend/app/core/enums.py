@@ -1,0 +1,92 @@
+from enum import Enum
+
+
+class UserRole(str, Enum):
+    ADMIN = "ADMIN"
+    ASSET_MANAGER = "ASSET_MANAGER"
+    DEPARTMENT_HEAD = "DEPARTMENT_HEAD"
+    EMPLOYEE = "EMPLOYEE"
+
+
+class UserStatus(str, Enum):
+    ACTIVE = "ACTIVE"
+    INACTIVE = "INACTIVE"
+
+
+class AssetStatus(str, Enum):
+    AVAILABLE = "AVAILABLE"
+    ALLOCATED = "ALLOCATED"
+    RESERVED = "RESERVED"
+    UNDER_MAINTENANCE = "UNDER_MAINTENANCE"
+    LOST = "LOST"
+    RETIRED = "RETIRED"
+    DISPOSED = "DISPOSED"
+
+
+class AssetCondition(str, Enum):
+    EXCELLENT = "EXCELLENT"
+    GOOD = "GOOD"
+    FAIR = "FAIR"
+    POOR = "POOR"
+    DAMAGED = "DAMAGED"
+
+
+class TransferStatus(str, Enum):
+    REQUESTED = "REQUESTED"
+    APPROVED = "APPROVED"
+    REJECTED = "REJECTED"
+
+
+class ReturnStatus(str, Enum):
+    REQUESTED = "REQUESTED"
+    APPROVED = "APPROVED"
+    REJECTED = "REJECTED"
+
+
+class BookingStatus(str, Enum):
+    UPCOMING = "UPCOMING"
+    ONGOING = "ONGOING"
+    COMPLETED = "COMPLETED"
+    CANCELLED = "CANCELLED"
+
+
+class MaintenanceStatus(str, Enum):
+    PENDING = "PENDING"
+    APPROVED = "APPROVED"
+    REJECTED = "REJECTED"
+    TECHNICIAN_ASSIGNED = "TECHNICIAN_ASSIGNED"
+    IN_PROGRESS = "IN_PROGRESS"
+    RESOLVED = "RESOLVED"
+
+
+class MaintenancePriority(str, Enum):
+    LOW = "LOW"
+    MEDIUM = "MEDIUM"
+    HIGH = "HIGH"
+    CRITICAL = "CRITICAL"
+
+
+class AuditStatus(str, Enum):
+    PLANNED = "PLANNED"
+    IN_PROGRESS = "IN_PROGRESS"
+    COMPLETED = "COMPLETED"
+    CLOSED = "CLOSED"
+
+
+class AuditItemStatus(str, Enum):
+    PENDING = "PENDING"
+    VERIFIED = "VERIFIED"
+    MISSING = "MISSING"
+    DAMAGED = "DAMAGED"
+
+
+class NotificationType(str, Enum):
+    ASSET_ASSIGNED = "ASSET_ASSIGNED"
+    MAINTENANCE_APPROVED = "MAINTENANCE_APPROVED"
+    MAINTENANCE_REJECTED = "MAINTENANCE_REJECTED"
+    BOOKING_CONFIRMED = "BOOKING_CONFIRMED"
+    BOOKING_CANCELLED = "BOOKING_CANCELLED"
+    BOOKING_REMINDER = "BOOKING_REMINDER"
+    TRANSFER_APPROVED = "TRANSFER_APPROVED"
+    OVERDUE_RETURN = "OVERDUE_RETURN"
+    AUDIT_DISCREPANCY = "AUDIT_DISCREPANCY"
