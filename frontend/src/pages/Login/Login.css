@@ -1,0 +1,338 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter',sans-serif;
+}
+
+html,
+body,
+#root{
+    width:100%;
+    height:100%;
+}
+
+body{
+    background:#f4f6fb;
+}
+
+/* ==========================
+   Page
+========================== */
+
+.login-page{
+    width:100%;
+    height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:#f4f6fb;
+}
+
+/* ==========================
+   Card
+========================== */
+
+.login-card{
+
+    width:100%;
+    max-width:560px;
+
+    background:#ffffff;
+
+    border-radius:28px;
+
+    padding:45px;
+
+    box-shadow:
+        0 15px 40px rgba(15,23,42,.08);
+
+}
+
+/* ==========================
+   Lock
+========================== */
+
+.lock-icon{
+
+    width:70px;
+    height:70px;
+
+    border-radius:20px;
+
+    background:#f2ebff;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    color:#6b46ff;
+
+    font-size:30px;
+
+    margin-bottom:28px;
+}
+
+/* ==========================
+   Heading
+========================== */
+
+.login-card h1{
+
+    font-size:46px;
+
+    font-weight:800;
+
+    color:#1e2434;
+
+    margin-bottom:10px;
+}
+
+.subtitle{
+
+    color:#6b7280;
+
+    font-size:20px;
+
+    margin-bottom:35px;
+}
+
+/* ==========================
+   Inputs
+========================== */
+
+.input-group{
+
+    margin-bottom:24px;
+}
+
+.input-group label{
+
+    display:block;
+
+    font-size:17px;
+
+    font-weight:700;
+
+    color:#1f2937;
+
+    margin-bottom:12px;
+}
+
+.input-box{
+
+    height:64px;
+
+    border:1px solid #e5e7eb;
+
+    border-radius:16px;
+
+    display:flex;
+
+    align-items:center;
+
+    padding:0 18px;
+
+    transition:.25s;
+}
+
+.input-box:hover{
+
+    border-color:#6b46ff;
+}
+
+.input-box:focus-within{
+
+    border-color:#6b46ff;
+
+    box-shadow:0 0 0 4px rgba(107,70,255,.12);
+}
+
+.input-box svg{
+
+    color:#9ca3af;
+
+    font-size:18px;
+}
+
+.input-box input{
+
+    flex:1;
+
+    border:none;
+
+    outline:none;
+
+    background:none;
+
+    margin-left:14px;
+
+    font-size:16px;
+}
+
+.input-box input::placeholder{
+
+    color:#9ca3af;
+}
+
+.eye-btn{
+
+    background:none;
+
+    border:none;
+
+    cursor:pointer;
+
+    color:#9ca3af;
+
+    font-size:20px;
+}
+
+/* ==========================
+   Remember
+========================== */
+
+.login-options{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin:28px 0;
+}
+
+.remember{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    color:#6b7280;
+
+    font-size:15px;
+}
+
+.remember input{
+
+    width:18px;
+
+    height:18px;
+
+    accent-color:#6b46ff;
+}
+
+.forgot-btn{
+
+    border:none;
+
+    background:none;
+
+    cursor:pointer;
+
+    color:#6b46ff;
+
+    font-weight:600;
+
+    font-size:15px;
+}
+
+/* ==========================
+   Login Button
+========================== */
+
+.login-btn{
+
+    width:100%;
+
+    height:60px;
+
+    border:none;
+
+    border-radius:16px;
+
+    background:linear-gradient(90deg,#7c4dff,#5b2dd5);
+
+    color:white;
+
+    font-size:20px;
+
+    font-weight:700;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:10px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    box-shadow:0 15px 30px rgba(91,45,213,.28);
+}
+
+.login-btn:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:0 20px 35px rgba(91,45,213,.35);
+}
+
+/* ==========================
+   Signup
+========================== */
+
+.signup-text{
+
+    text-align:center;
+
+    margin-top:28px;
+
+    color:#6b7280;
+
+    font-size:15px;
+}
+
+.signup-text span{
+
+    color:#6b46ff;
+
+    font-weight:700;
+
+    cursor:pointer;
+}
+
+/* ==========================
+   Responsive
+========================== */
+
+@media(max-width:768px){
+
+.login-card{
+
+    margin:20px;
+
+    padding:30px;
+}
+
+.login-card h1{
+
+    font-size:36px;
+}
+
+.subtitle{
+
+    font-size:17px;
+}
+
+}
