@@ -8,10 +8,7 @@ from app.api.auth import router as auth_router
 from app.api.users import router as users_router
 from app.api.allocations import router as allocations_router
 from app.api.bookings import router as bookings_router
-from app.api.maintenance import router as maintenance_router
-from app.api.notifications import router as notifications_router
-from app.api.activity_log import router as activity_log_router
-
+from app.api.transfers import router as transfers_router
 from app.db.base import Base
 from app.db.session import engine
 
@@ -30,15 +27,11 @@ app = FastAPI(
 )
 
 
-# Register API Routers
 app.include_router(auth_router)
 app.include_router(users_router)
 app.include_router(allocations_router)
 app.include_router(bookings_router)
-app.include_router(maintenance_router)
-app.include_router(notifications_router)
-app.include_router(activity_log_router)
-
+app.include_router(transfers_router)
 
 @app.get("/")
 def root():
@@ -51,6 +44,4 @@ def root():
 
 @app.get("/health")
 def health_check():
-    return {
-        "status": "healthy",
-    }
+    return {"status": "healthy"}
