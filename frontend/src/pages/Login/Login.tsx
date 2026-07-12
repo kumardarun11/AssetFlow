@@ -6,6 +6,7 @@ import { HiOutlineCube } from "react-icons/hi";
 import { useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
 import illustration from "../../assets/images/illustration.png";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -100,7 +101,7 @@ const Login = () => {
 
           <p className="signup-text">
             Don't have an account?
-            <span> Sign up</span>
+            <Link to="/signup"> Sign Up</Link>
           </p>
 
         </div>
