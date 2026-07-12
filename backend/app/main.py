@@ -6,6 +6,7 @@ import app.models
 
 from app.api.auth import router as auth_router
 from app.api.users import router as users_router
+from app.api.allocations import router as allocations_router
 from app.api.bookings import router as bookings_router
 from app.api.maintenance import router as maintenance_router
 from app.api.notifications import router as notifications_router
@@ -32,6 +33,7 @@ app = FastAPI(
 # Register API Routers
 app.include_router(auth_router)
 app.include_router(users_router)
+app.include_router(allocations_router)
 app.include_router(bookings_router)
 app.include_router(maintenance_router)
 app.include_router(notifications_router)
