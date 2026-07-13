@@ -7,7 +7,6 @@ from app.models.user import User
 from app.schemas.notification import NotificationCreate
 
 from app.core.enums import NotificationType
-from app.models.user import User
 
 
 # ------------------------------------------------------

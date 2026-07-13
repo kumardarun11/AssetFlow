@@ -10,6 +10,8 @@ import Transfers from "./pages/Transfers/Transfers";
 import Returns from "./pages/Returns/Returns";
 import Bookings from "./pages/Bookings/Bookings";
 import Maintenance from "./pages/Maintenance/Maintenance";
+import Notifications from "./pages/Notifications/Notifications";
+import ActivityLogs from "./pages/ActivityLogs/ActivityLogs";
 import ProtectedRoute from "./routes/ProtectedRoute";
 
 function App() {
@@ -29,6 +31,8 @@ function App() {
           <Route path="/returns" element={<Returns />} />
           <Route path="/bookings" element={<Bookings />} />
           <Route path="/maintenance" element={<Maintenance />} />
+          <Route path="/notifications" element={<Notifications />} />
+          <Route path="/activity-logs" element={<ActivityLogs />} />
         </Route>
       </Route>
 

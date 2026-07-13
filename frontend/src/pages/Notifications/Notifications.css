@@ -1,0 +1,162 @@
+.notifications-page {
+  padding: 32px;
+}
+
+.notifications-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+.notifications-header h1 {
+  margin: 0;
+  font-size: 30px;
+}
+
+.notifications-header p {
+  margin-top: 8px;
+  color: #6b7280;
+}
+
+.notifications-header > svg {
+  font-size: 34px;
+  color: #2563eb;
+}
+
+.notifications-error {
+  padding: 13px 16px;
+  margin-bottom: 20px;
+  border-radius: 9px;
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.notifications-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 24px;
+}
+
+.notifications-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.notifications-toolbar h2 {
+  margin: 0;
+}
+
+.mark-all-btn,
+.mark-read-btn {
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.mark-all-btn {
+  padding: 10px 14px;
+  background: #2563eb;
+  color: white;
+}
+
+.mark-read-btn {
+  padding: 8px 11px;
+  background: #dbeafe;
+  color: #1d4ed8;
+  white-space: nowrap;
+}
+
+.notifications-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.notification-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 18px;
+  border: 1px solid #e5e7eb;
+  border-radius: 11px;
+}
+
+.notification-item.unread {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+}
+
+.notification-item.read {
+  background: #ffffff;
+  opacity: 0.75;
+}
+
+.notification-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #dbeafe;
+  color: #2563eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notification-content {
+  flex: 1;
+}
+
+.notification-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.notification-type {
+  font-size: 12px;
+  font-weight: 700;
+  color: #2563eb;
+}
+
+.notification-date {
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+.notification-content p {
+  margin: 7px 0 0;
+  color: #374151;
+}
+
+.notifications-empty,
+.notifications-loading {
+  padding: 40px;
+  text-align: center;
+  color: #6b7280;
+}
+
+.notifications-empty svg {
+  font-size: 35px;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 700px) {
+  .notifications-page {
+    padding: 20px;
+  }
+
+  .notification-item {
+    align-items: flex-start;
+  }
+
+  .notification-top {
+    flex-direction: column;
+  }
+}

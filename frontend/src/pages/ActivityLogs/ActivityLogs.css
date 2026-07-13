@@ -1,0 +1,157 @@
+.activity-page {
+  padding: 32px;
+}
+
+.activity-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.activity-header h1 {
+  margin: 0;
+  font-size: 30px;
+}
+
+.activity-header p {
+  margin-top: 8px;
+  color: #6b7280;
+}
+
+.activity-header > svg {
+  font-size: 34px;
+  color: #2563eb;
+}
+
+.activity-error {
+  padding: 13px 16px;
+  margin-bottom: 20px;
+  border-radius: 9px;
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.activity-filter-card,
+.activity-list-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 24px;
+}
+
+.activity-filter-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.activity-filter-grid > div {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.activity-filter-grid label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.activity-filter-grid input {
+  padding: 11px 13px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  outline: none;
+}
+
+.activity-filter-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.activity-filter-actions button {
+  border: none;
+  border-radius: 8px;
+  padding: 10px 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.activity-search-btn {
+  background: #2563eb;
+  color: white;
+}
+
+.activity-reset-btn {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.activity-list-card {
+  margin-top: 25px;
+}
+
+.activity-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.activity-list-header h2 {
+  margin: 0 0 20px;
+}
+
+.activity-list-header span {
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.activity-table-wrapper {
+  overflow-x: auto;
+}
+
+.activity-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.activity-table th,
+.activity-table td {
+  padding: 14px;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.activity-table th {
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.action-badge {
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: #dbeafe;
+  color: #1d4ed8;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.activity-empty {
+  padding: 35px;
+  text-align: center;
+  color: #6b7280;
+}
+
+@media (max-width: 800px) {
+  .activity-page {
+    padding: 20px;
+  }
+
+  .activity-filter-grid {
+    grid-template-columns: 1fr;
+  }
+}
