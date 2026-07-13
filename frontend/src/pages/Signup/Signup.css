@@ -405,3 +405,17 @@ body{
 .login-text a:hover{
     color:#5129d4;
 }
+
+.signup-error {
+  background: #fee2e2;
+  color: #dc2626;
+  padding: 12px 14px;
+  border-radius: 8px;
+  margin-bottom: 18px;
+  font-size: 14px;
+}
+
+.signup-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}

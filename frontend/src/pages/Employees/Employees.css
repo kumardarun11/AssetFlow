@@ -1,0 +1,156 @@
+.employees-page {
+  padding: 8px;
+}
+
+.employees-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+.employees-header h1 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.employees-header p {
+  margin-top: 8px;
+  color: #6b7280;
+}
+
+.employee-count {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  padding: 12px 18px;
+  border-radius: 10px;
+}
+
+.employee-count svg {
+  color: #2563eb;
+}
+
+.employees-table-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  overflow-x: auto;
+}
+
+.employees-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.employees-table th {
+  text-align: left;
+  padding: 16px 20px;
+  background: #f9fafb;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.employees-table td {
+  padding: 16px 20px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.employee-name {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.employee-name div:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.employee-name span {
+  color: #6b7280;
+  font-size: 12px;
+}
+
+.employee-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #eff6ff;
+  color: #2563eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.employees-table select {
+  padding: 8px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 7px;
+  background: white;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-badge.active {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.status-badge.inactive {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.activate-btn,
+.deactivate-btn {
+  border: none;
+  padding: 8px 12px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.activate-btn {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.deactivate-btn {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.activate-btn:disabled,
+.deactivate-btn:disabled,
+.employees-table select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.employees-state {
+  padding: 40px;
+  text-align: center;
+}
+
+.employees-state.error {
+  color: #dc2626;
+}
+
+@media (max-width: 900px) {
+  .employees-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 15px;
+  }
+}

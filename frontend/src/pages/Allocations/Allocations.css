@@ -1,0 +1,244 @@
+.allocations-page {
+  padding: 8px;
+}
+
+.allocations-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+.allocations-header h1 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.allocations-header p {
+  margin: 8px 0 0;
+  color: #6b7280;
+}
+
+.allocation-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.refresh-btn,
+.new-allocation-btn {
+  border: none;
+  padding: 11px 16px;
+  border-radius: 9px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.refresh-btn {
+  background: white;
+  color: #374151;
+  border: 1px solid #d1d5db;
+}
+
+.new-allocation-btn {
+  background: #2563eb;
+  color: white;
+}
+
+.allocation-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-bottom: 25px;
+}
+
+.allocation-summary-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 22px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.allocation-summary-card svg {
+  font-size: 28px;
+  color: #2563eb;
+}
+
+.allocation-summary-card div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.allocation-summary-card span {
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.allocation-summary-card strong {
+  font-size: 25px;
+}
+
+.allocation-form {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 25px;
+}
+
+.allocation-form-header h2 {
+  margin: 0;
+}
+
+.allocation-form-header p {
+  color: #6b7280;
+  margin: 7px 0 0;
+}
+
+.allocation-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-top: 22px;
+}
+
+.allocation-form-grid div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.allocation-form-grid label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.allocation-form-grid input,
+.allocation-form-grid select {
+  padding: 11px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  outline: none;
+}
+
+.allocation-form-grid input:focus,
+.allocation-form-grid select:focus {
+  border-color: #2563eb;
+}
+
+.allocation-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.cancel-btn,
+.submit-allocation-btn {
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.cancel-btn {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.submit-allocation-btn {
+  background: #2563eb;
+  color: white;
+}
+
+.submit-allocation-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.allocations-table-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  overflow-x: auto;
+}
+
+.allocations-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.allocations-table th {
+  padding: 16px 20px;
+  background: #f9fafb;
+  color: #6b7280;
+  font-size: 13px;
+  text-align: left;
+}
+
+.allocations-table td {
+  padding: 16px 20px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.allocation-badge {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.allocation-badge.active {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.allocation-badge.overdue {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.allocation-badge.returned {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+.empty-allocations {
+  text-align: center;
+  color: #6b7280;
+  padding: 40px !important;
+}
+
+.allocations-state {
+  padding: 40px;
+  text-align: center;
+}
+
+.allocations-state.error {
+  color: #dc2626;
+}
+
+@media (max-width: 900px) {
+  .allocations-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .allocation-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .allocation-form-grid {
+    grid-template-columns: 1fr;
+  }
+}

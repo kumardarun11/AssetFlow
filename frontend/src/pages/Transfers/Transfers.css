@@ -1,0 +1,258 @@
+.transfers-page {
+  padding: 8px;
+}
+
+.transfers-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+.transfers-header h1 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.transfers-header p {
+  color: #6b7280;
+  margin: 8px 0 0;
+}
+
+.transfer-header-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.transfer-refresh-btn,
+.new-transfer-btn {
+  border: none;
+  border-radius: 9px;
+  padding: 11px 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.transfer-refresh-btn {
+  background: white;
+  border: 1px solid #d1d5db;
+}
+
+.new-transfer-btn {
+  background: #2563eb;
+  color: white;
+}
+
+.transfer-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-bottom: 25px;
+}
+
+.transfer-summary-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 22px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.transfer-summary-card svg {
+  font-size: 27px;
+  color: #2563eb;
+}
+
+.transfer-summary-card div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.transfer-summary-card span {
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.transfer-summary-card strong {
+  font-size: 25px;
+}
+
+.transfer-form {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 25px;
+}
+
+.transfer-form h2 {
+  margin-top: 0;
+}
+
+.transfer-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.transfer-form-grid div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.transfer-form-grid label {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.transfer-form-grid input,
+.transfer-form-grid select,
+.transfer-form-grid textarea {
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 11px 12px;
+  outline: none;
+}
+
+.transfer-reason {
+  grid-column: 1 / -1;
+}
+
+.transfer-reason textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.transfer-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.transfer-cancel-btn,
+.transfer-submit-btn {
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.transfer-cancel-btn {
+  background: #f3f4f6;
+}
+
+.transfer-submit-btn {
+  background: #2563eb;
+  color: white;
+}
+
+.transfers-table-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  overflow-x: auto;
+}
+
+.transfers-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.transfers-table th {
+  padding: 16px;
+  text-align: left;
+  background: #f9fafb;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.transfers-table td {
+  padding: 16px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.transfer-badge {
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.transfer-badge.requested {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.transfer-badge.approved {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.transfer-badge.rejected {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.transfer-row-actions {
+  display: flex;
+  gap: 7px;
+}
+
+.approve-transfer-btn,
+.reject-transfer-btn {
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.approve-transfer-btn {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.reject-transfer-btn {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.empty-transfers {
+  text-align: center;
+  color: #6b7280;
+  padding: 40px !important;
+}
+
+.transfers-state {
+  padding: 40px;
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .transfers-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .transfer-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .transfer-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .transfer-reason {
+    grid-column: auto;
+  }
+}
