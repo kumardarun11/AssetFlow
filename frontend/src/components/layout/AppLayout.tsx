@@ -18,19 +18,51 @@ const AppLayout = () => {
         <h2>AssetFlow</h2>
 
         <nav>
-          <NavLink to="/dashboard">Dashboard</NavLink>
-          <NavLink to="/users">Employees</NavLink>
-          <NavLink to="/assets">Assets</NavLink>
-          <NavLink to="/allocations">Allocations</NavLink>
-          <NavLink to="/transfers">Transfers</NavLink>
-          <NavLink to="/returns">Returns</NavLink>
-          <NavLink to="/bookings">Bookings</NavLink>
-          <NavLink to="/maintenance">Maintenance</NavLink>
-          <NavLink to="/notifications">Notifications</NavLink>
-          <NavLink to="/activity-logs">Activity Logs</NavLink>
+          <NavLink to="/dashboard">
+            Dashboard
+          </NavLink>
+
+          <NavLink to="/users">
+            Employees
+          </NavLink>
+
+          <NavLink to="/assets">
+            Assets
+          </NavLink>
+
+          <NavLink to="/allocations">
+            Allocations
+          </NavLink>
+
+          <NavLink to="/transfers">
+            Transfers
+          </NavLink>
+
+          <NavLink to="/returns">
+            Returns
+          </NavLink>
+
+          <NavLink to="/bookings">
+            Bookings
+          </NavLink>
+
+          <NavLink to="/maintenance">
+            Maintenance
+          </NavLink>
+
+          <NavLink to="/notifications">
+            Notifications
+          </NavLink>
+
+          <NavLink to="/activity-logs">
+            Activity Logs
+          </NavLink>
         </nav>
 
-        <button onClick={handleLogout}>
+        <button
+          type="button"
+          onClick={handleLogout}
+        >
           Logout
         </button>
       </aside>

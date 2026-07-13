@@ -8,6 +8,7 @@ import Signup from "./pages/Signup/Signup";
 import Allocations from "./pages/Allocations/Allocations";
 import Transfers from "./pages/Transfers/Transfers";
 import Returns from "./pages/Returns/Returns";
+import Bookings from "./pages/Bookings/Bookings";
 import ProtectedRoute from "./routes/ProtectedRoute";
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
           <Route path="/allocations" element={<Allocations />} />
           <Route path="/transfers" element={<Transfers />} />
           <Route path="/returns" element={<Returns />} />
+          <Route path="/bookings" element={<Bookings />} />
         </Route>
       </Route>
 
