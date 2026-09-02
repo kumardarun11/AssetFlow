@@ -16,6 +16,11 @@ from app.api import notification
 from app.api import maintenance
 from app.api import activity_log
 
+from app.api import departments
+from app.api import categories
+from app.api import assets
+from app.api import audits
+
 from app.db.base import Base
 from app.db.session import engine
 
@@ -57,6 +62,10 @@ app.include_router(transfers_router)
 app.include_router(returns_router)
 app.include_router(dashboard_router)
 
+app.include_router(departments.router)
+app.include_router(categories.router)
+app.include_router(assets.router)
+app.include_router(audits.router)
 
 # Booking APIs
 app.include_router(
