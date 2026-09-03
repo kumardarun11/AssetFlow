@@ -174,6 +174,26 @@ def assign_auditor(
     return auditor
 
 
+def list_audit_auditors(
+    db: Session,
+    audit_cycle_id: int,
+) -> list[AuditAuditor]:
+
+    get_audit_cycle(
+        db,
+        audit_cycle_id,
+    )
+
+    return (
+        db.query(AuditAuditor)
+        .filter(
+            AuditAuditor.audit_cycle_id == audit_cycle_id
+        )
+        .order_by(AuditAuditor.id.asc())
+        .all()
+    )
+
+
 def add_audit_item(
     db: Session,
     audit_cycle_id: int,

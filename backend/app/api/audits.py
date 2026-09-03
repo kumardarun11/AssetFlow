@@ -22,6 +22,7 @@ from app.services.audit_service import (
     create_audit_cycle,
     get_discrepancies,
     get_audit_cycle,
+    list_audit_auditors,
     list_audit_cycles,
     list_audit_items,
     verify_audit_item,
@@ -95,6 +96,20 @@ def add_auditor(
         db,
         audit_cycle_id,
         data,
+    )
+
+@router.get(
+    "/{audit_cycle_id}/auditors",
+    response_model=list[AuditAuditorResponse],
+)
+def get_auditors(
+    audit_cycle_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(audit_roles),
+):
+    return list_audit_auditors(
+        db,
+        audit_cycle_id,
     )
 
 
