@@ -6,7 +6,13 @@ from app.core.config import settings
 
 engine = create_engine(
     settings.DATABASE_URL,
+    connect_args={
+        "ssl_ca": settings.CA_PATH,
+        "ssl_verify_cert": True,
+        "ssl_verify_identity": True,
+    },
     pool_pre_ping=True,
+    pool_recycle=300,
 )
 
 SessionLocal = sessionmaker(
