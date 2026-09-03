@@ -12,6 +12,7 @@ import {
   FaUserCircle,
 } from "react-icons/fa";
 
+import api from "../../api/client";
 import "./Dashboard.css";
 
 interface User {
@@ -44,8 +45,6 @@ interface DashboardSummary {
   recent_activity: Activity[];
 }
 
-const API_URL = "http://127.0.0.1:8000";
-
 const Dashboard = () => {
   const navigate = useNavigate();
 
@@ -66,46 +65,30 @@ const Dashboard = () => {
       }
 
       try {
-        const headers = {
-          Authorization: `Bearer ${token}`,
-        };
-
         const [userResponse, summaryResponse] =
           await Promise.all([
-            fetch(`${API_URL}/api/auth/me`, {
-              headers,
-            }),
-            fetch(`${API_URL}/api/dashboard/summary`, {
-              headers,
-            }),
+            api.get("/api/auth/me"),
+            api.get("/api/dashboard/summary"),
           ]);
-
-        if (
-          userResponse.status === 401 ||
-          summaryResponse.status === 401
-        ) {
+        
+        const userData: User =
+          userResponse.data;
+        
+        const summaryData: DashboardSummary =
+          summaryResponse.data;
+        
+        setUser(userData);
+        setSummary(summaryData);
+      } catch (err: any) {
+        if (err.response?.status === 401) {
           localStorage.removeItem("access_token");
           navigate("/login");
           return;
         }
-
-        if (!userResponse.ok || !summaryResponse.ok) {
-          throw new Error("Failed to load dashboard");
-        }
-
-        const userData: User =
-          await userResponse.json();
-
-        const summaryData: DashboardSummary =
-          await summaryResponse.json();
-
-        setUser(userData);
-        setSummary(summaryData);
-      } catch (err) {
         setError(
-          err instanceof Error
-            ? err.message
-            : "Something went wrong"
+            err.response?.data?.detail ||
+              err.message ||
+              "Something went wrong"
         );
       } finally {
         setLoading(false);

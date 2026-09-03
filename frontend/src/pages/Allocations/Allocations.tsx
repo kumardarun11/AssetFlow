@@ -119,34 +119,17 @@ const Allocations = () => {
     setSubmitting(true);
 
     try {
-      const response = await fetch(
-        "http://127.0.0.1:8000/api/allocations",
+      await api.post(
+        "/api/allocations",
         {
-          method: "POST",
-
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-
-          body: JSON.stringify({
-            asset_id: Number(assetId),
-            employee_id: Number(employeeId),
-            department_id: null,
-            expected_return_date:
-              expectedReturnDate || null,
-            notes: notes || null,
-          }),
+          asset_id: Number(assetId),
+          employee_id: Number(employeeId),
+          department_id: null,
+          expected_return_date:
+            expectedReturnDate || null,
+          notes: notes || null,
         }
       );
-
-      if (!response.ok) {
-        const data = await response.json();
-
-        throw new Error(
-          data.detail || "Failed to allocate asset"
-        );
-      }
 
       setAssetId("");
       setEmployeeId("");

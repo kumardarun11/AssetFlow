@@ -7,6 +7,7 @@ import {
   FaTimes,
 } from "react-icons/fa";
 
+import api from "../../api/client";
 import "./Returns.css";
 
 interface AssetReturn {
@@ -44,42 +45,28 @@ const Returns = () => {
 
   const fetchData = useCallback(async () => {
     if (!token) return;
-
+  
     try {
-      const headers = {
-        Authorization: `Bearer ${token}`,
-      };
-
       const [returnsResponse, usersResponse, meResponse] =
         await Promise.all([
-          fetch("http://127.0.0.1:8000/api/returns", {
-            headers,
-          }),
-
-          fetch("http://127.0.0.1:8000/api/users", {
-            headers,
-          }),
-
-          fetch("http://127.0.0.1:8000/api/auth/me", {
-            headers,
-          }),
+          api.get("/api/returns"),
+          api.get("/api/users"),
+          api.get("/api/auth/me"),
         ]);
-
-      if (!returnsResponse.ok) {
-        throw new Error("Failed to load returns");
-      }
-
-      setReturns(await returnsResponse.json());
-
-      if (usersResponse.ok) {
-        setUsers(await usersResponse.json());
-      }
-
-      if (meResponse.ok) {
-        setCurrentUser(await meResponse.json());
-      }
-    } catch (error) {
+      
+      setReturns(returnsResponse.data);
+      
+      setUsers(usersResponse.data);
+      
+      setCurrentUser(meResponse.data);
+    } catch (error: any) {
       console.error(error);
+    
+      if (error.response?.status === 401) {
+        localStorage.removeItem("access_token");
+        window.location.href = "/login";
+        return;
+      }
     } finally {
       setLoading(false);
     }
@@ -101,43 +88,26 @@ const Returns = () => {
     event: React.FormEvent
   ) => {
     event.preventDefault();
-
+  
     if (!token) return;
-
+  
     try {
-      const response = await fetch(
-        "http://127.0.0.1:8000/api/returns",
+      await api.post(
+        "/api/returns",
         {
-          method: "POST",
-
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-
-          body: JSON.stringify({
-            allocation_id: Number(allocationId),
-          }),
+          allocation_id: Number(allocationId),
         }
       );
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(
-          data.detail || "Return request failed"
-        );
-      }
-
+    
       setAllocationId("");
       setShowForm(false);
-
+    
       await fetchData();
-    } catch (error) {
+    } catch (error: any) {
       alert(
-        error instanceof Error
-          ? error.message
-          : "Return request failed"
+        error.response?.data?.detail ||
+          error.message ||
+          "Return request failed"
       );
     }
   };
@@ -146,75 +116,43 @@ const Returns = () => {
     if (!token || approveId === null) return;
 
     try {
-      const response = await fetch(
-        `http://127.0.0.1:8000/api/returns/${approveId}/approve`,
+      await api.patch(
+        `/api/returns/${approveId}/approve`,
         {
-          method: "PATCH",
-
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-
-          body: JSON.stringify({
-            condition,
-            check_in_notes: notes || null,
-          }),
+          condition,
+          check_in_notes: notes || null,
         }
       );
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(
-          data.detail || "Return approval failed"
-        );
-      }
 
       setApproveId(null);
       setCondition("GOOD");
       setNotes("");
 
       await fetchData();
-    } catch (error) {
+    } catch (error: any) {
       alert(
-        error instanceof Error
-          ? error.message
-          : "Return approval failed"
+      error.response?.data?.detail ||
+        error.message ||
+        "Return approval failed"
       );
     }
   };
 
   const rejectReturn = async (returnId: number) => {
     if (!token) return;
-
+  
     try {
-      const response = await fetch(
-        `http://127.0.0.1:8000/api/returns/${returnId}/reject`,
-        {
-          method: "PATCH",
-
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+      await api.patch(
+        `/api/returns/${returnId}/reject`
       );
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(
-          data.detail || "Return rejection failed"
-        );
-      }
-
+    
       await fetchData();
-    } catch (error) {
-      alert(
-        error instanceof Error
-          ? error.message
-          : "Return rejection failed"
-      );
+    } catch (error: any) {
+    alert(
+      error.response?.data?.detail ||
+        error.message ||
+        "Return rejection failed"
+    );
     }
   };
 

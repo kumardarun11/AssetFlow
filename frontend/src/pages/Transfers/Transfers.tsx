@@ -7,6 +7,7 @@ import {
   FaTimes,
 } from "react-icons/fa";
 
+import api from "../../api/client";
 import "./Transfers.css";
 
 interface Transfer {
@@ -50,33 +51,20 @@ const Transfers = () => {
     try {
       const [transferResponse, userResponse] =
         await Promise.all([
-          fetch("http://127.0.0.1:8000/api/transfers", {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }),
-
-          fetch("http://127.0.0.1:8000/api/users", {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }),
+          api.get("/api/transfers"),
+          api.get("/api/users"),
         ]);
 
-      if (!transferResponse.ok) {
-        throw new Error("Failed to load transfers");
-      }
-
-      const transferData = await transferResponse.json();
-
-      setTransfers(transferData);
-
-      if (userResponse.ok) {
-        const userData = await userResponse.json();
-        setUsers(userData);
-      }
-    } catch (error) {
+      setTransfers(transferResponse.data);
+      setUsers(userResponse.data);
+    } catch (error: any) {
       console.error(error);
+
+      if (error.response?.status === 401) {
+        localStorage.removeItem("access_token");
+        window.location.href = "/login";
+        return;
+      }
     } finally {
       setLoading(false);
     }
@@ -104,32 +92,15 @@ const Transfers = () => {
     setSubmitting(true);
 
     try {
-      const response = await fetch(
-        "http://127.0.0.1:8000/api/transfers",
+      await api.post(
+        "/api/transfers",
         {
-          method: "POST",
-
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-
-          body: JSON.stringify({
-            asset_id: Number(assetId),
-            target_employee_id: Number(targetEmployeeId),
-            target_department_id: null,
-            reason: reason || null,
-          }),
+          asset_id: Number(assetId),
+          target_employee_id: Number(targetEmployeeId),
+          target_department_id: null,
+          reason: reason || null,
         }
       );
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(
-          data.detail || "Transfer request failed"
-        );
-      }
 
       setAssetId("");
       setTargetEmployeeId("");
@@ -137,11 +108,11 @@ const Transfers = () => {
       setShowForm(false);
 
       await fetchData();
-    } catch (error) {
+    } catch (error: any) {
       alert(
-        error instanceof Error
-          ? error.message
-          : "Transfer request failed"
+        error.response?.data?.detail ||
+          error.message ||
+          "Transfer request failed"
       );
     } finally {
       setSubmitting(false);
@@ -155,35 +126,20 @@ const Transfers = () => {
     if (!token) return;
 
     try {
-      const response = await fetch(
-        `http://127.0.0.1:8000/api/transfers/${transferId}/${action}`,
-        {
-          method: "PATCH",
-
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+      await api.patch(
+        `/api/transfers/${transferId}/${action}`
       );
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(
-          data.detail || `Failed to ${action} transfer`
-        );
-      }
-
       await fetchData();
-    } catch (error) {
+    } catch (error: any) {
       alert(
-        error instanceof Error
-          ? error.message
-          : "Transfer review failed"
+        error.response?.data?.detail ||
+          error.message ||
+          `Failed to ${action} transfer`
       );
     }
   };
-
+  
   if (loading) {
     return (
       <div className="transfers-state">

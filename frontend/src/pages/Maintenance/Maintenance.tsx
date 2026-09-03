@@ -6,6 +6,7 @@ import {
   FaTimes,
 } from "react-icons/fa";
 
+import api from "../../api/client";
 import "./Maintenance.css";
 
 interface User {
@@ -35,8 +36,6 @@ interface MaintenanceHistory {
   maintenance_requests: MaintenanceRequest[];
 }
 
-const API_URL = "http://127.0.0.1:8000";
-
 const Maintenance = () => {
   const [requests, setRequests] = useState<MaintenanceRequest[]>([]);
   const [user, setUser] = useState<User | null>(null);
@@ -50,46 +49,24 @@ const Maintenance = () => {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [technicianId, setTechnicianId] = useState("");
-  const getToken = () => localStorage.getItem("access_token");
 
   const loadRequests = async () => {
-    const token = getToken();
-
-    const response = await fetch(
-      `${API_URL}/api/maintenance/`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
+    const response = await api.get(
+      "/api/maintenance/"
     );
 
-    if (!response.ok) {
-      throw new Error("Failed to load maintenance requests");
-    }
-
-    const data: MaintenanceHistory = await response.json();
+    const data: MaintenanceHistory =
+      response.data;
 
     setRequests(data.maintenance_requests);
   };
 
   const loadUser = async () => {
-    const token = getToken();
-
-    const response = await fetch(
-      `${API_URL}/api/auth/me`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
+    const response = await api.get(
+      "/api/auth/me"
     );
 
-    if (!response.ok) {
-      throw new Error("Failed to load current user");
-    }
-
-    const data: User = await response.json();
+    const data: User = response.data;
 
     setUser(data);
 
@@ -132,47 +109,28 @@ const Maintenance = () => {
     setError("");
 
     try {
-      const token = getToken();
-
-      const response = await fetch(
-        `${API_URL}/api/maintenance/`,
+      await api.post(
+        "/api/maintenance/",
         {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            asset_id: Number(assetId),
-            requested_by_id: user.id,
-            issue_description: description,
-            priority,
-            photo_url: photoUrl || null,
-          }),
+          asset_id: Number(assetId),
+          requested_by_id: user.id,
+          issue_description: description,
+          priority,
+          photo_url: photoUrl || null,
         }
       );
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(
-          typeof data.detail === "string"
-            ? data.detail
-            : "Failed to create maintenance request"
-        );
-      }
-
+    
       setAssetId("");
       setDescription("");
       setPriority("MEDIUM");
       setPhotoUrl("");
-
+    
       await loadRequests();
-    } catch (err) {
+    } catch (err: any) {
       setError(
-        err instanceof Error
-          ? err.message
-          : "Something went wrong"
+        err.response?.data?.detail ||
+          err.message ||
+          "Something went wrong"
       );
     } finally {
       setSubmitting(false);
@@ -189,39 +147,20 @@ const Maintenance = () => {
 
     try {
       setError("");
-
-      const token = getToken();
-
-      const response = await fetch(
-        `${API_URL}/api/maintenance/${requestId}/${action}`,
+    
+      await api.put(
+        `/api/maintenance/${requestId}/${action}`,
         {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            approved_by_id: user.id,
-          }),
+          approved_by_id: user.id,
         }
       );
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(
-          typeof data.detail === "string"
-            ? data.detail
-            : `Failed to ${action} request`
-        );
-      }
-
+    
       await loadRequests();
-    } catch (err) {
+    } catch (err: any) {
       setError(
-        err instanceof Error
-          ? err.message
-          : "Something went wrong"
+        err.response?.data?.detail ||
+          err.message ||
+          "Something went wrong"
       );
     }
   };
@@ -238,41 +177,22 @@ const Maintenance = () => {
   
     try {
       setError("");
-  
-      const token = getToken();
-  
-      const response = await fetch(
-        `${API_URL}/api/maintenance/${requestId}/assign`,
+    
+      await api.put(
+        `/api/maintenance/${requestId}/assign`,
         {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            technician_id: id,
-          }),
+          technician_id: id,
         }
       );
-  
-      const data = await response.json();
-  
-      if (!response.ok) {
-        throw new Error(
-          typeof data.detail === "string"
-            ? data.detail
-            : "Failed to assign technician"
-        );
-      }
-  
+    
       setTechnicianId("");
-  
+    
       await loadRequests();
-    } catch (err) {
+    } catch (err: any) {
       setError(
-        err instanceof Error
-          ? err.message
-          : "Something went wrong"
+        err.response?.data?.detail ||
+          err.message ||
+          "Something went wrong"
       );
     }
   };
@@ -282,39 +202,20 @@ const Maintenance = () => {
   ) => {
     try {
       setError("");
-
-      const token = getToken();
-
-      const response = await fetch(
-        `${API_URL}/api/maintenance/${requestId}/status`,
+    
+      await api.put(
+        `/api/maintenance/${requestId}/status`,
         {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            status,
-          }),
+          status,
         }
       );
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(
-          typeof data.detail === "string"
-            ? data.detail
-            : "Failed to update maintenance status"
-        );
-      }
-
+    
       await loadRequests();
-    } catch (err) {
+    } catch (err: any) {
       setError(
-        err instanceof Error
-          ? err.message
-          : "Something went wrong"
+        err.response?.data?.detail ||
+          err.message ||
+          "Something went wrong"
       );
     }
   };

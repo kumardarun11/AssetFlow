@@ -5,6 +5,7 @@ import {
   FaCheckDouble,
 } from "react-icons/fa";
 
+import api from "../../api/client";
 import "./Notifications.css";
 
 interface User {
@@ -23,32 +24,19 @@ interface Notification {
   created_at: string;
 }
 
-const API_URL = "http://127.0.0.1:8000";
-
 const Notifications = () => {
   const [user, setUser] = useState<User | null>(null);
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  const getToken = () =>
-    localStorage.getItem("access_token");
-
   const loadNotifications = async (userId: number) => {
-    const response = await fetch(
-      `${API_URL}/api/notifications/user/${userId}`,
-      {
-        headers: {
-          Authorization: `Bearer ${getToken()}`,
-        },
-      }
+    const response = await api.get(
+      `/api/notifications/user/${userId}`
     );
 
-    if (!response.ok) {
-      throw new Error("Failed to load notifications");
-    }
-
-    const data: Notification[] = await response.json();
+    const data: Notification[] =
+      response.data;
 
     setNotifications(data);
   };
@@ -56,20 +44,12 @@ const Notifications = () => {
   useEffect(() => {
     const loadPage = async () => {
       try {
-        const response = await fetch(
-          `${API_URL}/api/auth/me`,
-          {
-            headers: {
-              Authorization: `Bearer ${getToken()}`,
-            },
-          }
-        );
+    const response = await api.get(
+      "/api/auth/me"
+    );
 
-        if (!response.ok) {
-          throw new Error("Failed to load current user");
-        }
-
-        const currentUser: User = await response.json();
+    const currentUser: User =
+      response.data;
 
         setUser(currentUser);
 
@@ -92,34 +72,18 @@ const Notifications = () => {
     try {
       setError("");
 
-      const response = await fetch(
-        `${API_URL}/api/notifications/${notificationId}/read`,
-        {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${getToken()}`,
-          },
-        }
+      await api.put(
+        `/api/notifications/${notificationId}/read`
       );
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(
-          typeof data.detail === "string"
-            ? data.detail
-            : "Failed to mark notification as read"
-        );
-      }
 
       if (user) {
         await loadNotifications(user.id);
       }
-    } catch (err) {
+    } catch (err: any) {
       setError(
-        err instanceof Error
-          ? err.message
-          : "Something went wrong"
+        err.response?.data?.detail ||
+          err.message ||
+          "Something went wrong"
       );
     }
   };
@@ -132,36 +96,20 @@ const Notifications = () => {
     try {
       setError("");
 
-      const response = await fetch(
-        `${API_URL}/api/notifications/user/${user.id}/read-all`,
-        {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${getToken()}`,
-          },
-        }
+      await api.put(
+        `/api/notifications/user/${user.id}/read-all`
       );
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(
-          typeof data.detail === "string"
-            ? data.detail
-            : "Failed to mark all notifications as read"
-        );
-      }
-
       await loadNotifications(user.id);
-    } catch (err) {
+    } catch (err: any) {
       setError(
-        err instanceof Error
-          ? err.message
-          : "Something went wrong"
+        err.response?.data?.detail ||
+          err.message ||
+          "Something went wrong"
       );
     }
   };
-
+  
   const unreadCount = notifications.filter(
     (notification) => !notification.is_read
   ).length;
