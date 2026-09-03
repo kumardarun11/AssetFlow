@@ -9,6 +9,7 @@ import {
   FaLock,
   FaArrowRight,
 } from "react-icons/fa";
+import api from "../../api/client";
 
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { HiOutlineCube } from "react-icons/hi";
@@ -33,53 +34,34 @@ const Signup = () => {
     event: SyntheticEvent<HTMLFormElement>
   ) => {
     event.preventDefault();
-
+  
     setError("");
-
+  
     if (password !== confirmPassword) {
       setError("Passwords do not match");
       return;
     }
-
+  
     if (!termsAccepted) {
       setError("Please accept the Terms of Service");
       return;
     }
-
+  
     setLoading(true);
-
+  
     try {
-      const response = await fetch(
-        "http://127.0.0.1:8000/api/auth/signup",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            name,
-            email,
-            password,
-          }),
-        }
-      );
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        if (typeof data.detail === "string") {
-          throw new Error(data.detail);
-        }
-
-        throw new Error("Failed to create account");
-      }
-
+      await api.post("/api/auth/signup", {
+        name,
+        email,
+        password,
+      });
+    
       navigate("/login");
-    } catch (err) {
+    } catch (err: any) {
       setError(
-        err instanceof Error
-          ? err.message
-          : "Something went wrong"
+        err.response?.data?.detail ||
+          err.message ||
+          "Something went wrong"
       );
     } finally {
       setLoading(false);

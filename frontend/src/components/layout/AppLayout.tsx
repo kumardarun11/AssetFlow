@@ -30,6 +30,10 @@ const AppLayout = () => {
             Assets
           </NavLink>
 
+          <NavLink to="/audits">
+            Audits
+          </NavLink>
+
           <NavLink to="/allocations">
             Allocations
           </NavLink>
@@ -45,6 +49,14 @@ const AppLayout = () => {
           <NavLink to="/bookings">
             Bookings
           </NavLink>
+
+          <NavLink to="/departments">
+            Departments
+          </NavLink> 
+
+          <NavLink to="/categories">
+            Categories
+          </NavLink>   
 
           <NavLink to="/maintenance">
             Maintenance

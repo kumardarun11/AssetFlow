@@ -5,6 +5,7 @@ import {
   FaTimes,
 } from "react-icons/fa";
 
+import api from "../../api/client";
 import "./Bookings.css";
 
 interface Booking {
@@ -29,8 +30,6 @@ interface User {
   status: string;
 }
 
-const API_URL = "http://127.0.0.1:8000";
-
 const Bookings = () => {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [user, setUser] = useState<User | null>(null);
@@ -44,47 +43,21 @@ const Bookings = () => {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
 
-  const getToken = () => localStorage.getItem("access_token");
-
   const loadBookings = async () => {
-    const token = getToken();
+    const response = await api.get("/api/bookings/");
 
-    const response = await fetch(
-      `${API_URL}/api/bookings/`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const data: Booking[] = response.data;
 
-    if (!response.ok) {
-      throw new Error("Failed to load bookings");
-    }
-
-    const data: Booking[] = await response.json();
     setBookings(data);
   };
 
   const loadUser = async () => {
-    const token = getToken();
-
-    const response = await fetch(
-      `${API_URL}/api/auth/me`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error("Failed to load current user");
-    }
-
-    const data: User = await response.json();
+    const response = await api.get("/api/auth/me");
+  
+    const data: User = response.data;
+  
     setUser(data);
-
+  
     return data;
   };
 
@@ -126,48 +99,26 @@ const Bookings = () => {
     setSubmitting(true);
 
     try {
-      const token = getToken();
-
-      const response = await fetch(
-        `${API_URL}/api/bookings/`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            asset_id: Number(assetId),
-            booked_by_id: user.id,
-            department_id: user.department_id,
-            start_time: new Date(startTime).toISOString(),
-            end_time: new Date(endTime).toISOString(),
-            purpose: purpose || null,
-          }),
-        }
-      );
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(
-          typeof data.detail === "string"
-            ? data.detail
-            : "Failed to create booking"
-        );
-      }
-
+      await api.post("/api/bookings/", {
+        asset_id: Number(assetId),
+        booked_by_id: user.id,
+        department_id: user.department_id,
+        start_time: new Date(startTime).toISOString(),
+        end_time: new Date(endTime).toISOString(),
+        purpose: purpose || null,
+      });
+    
       setAssetId("");
       setStartTime("");
       setEndTime("");
       setPurpose("");
-
+    
       await loadBookings();
-    } catch (err) {
+    } catch (err: any) {
       setError(
-        err instanceof Error
-          ? err.message
-          : "Something went wrong"
+        err.response?.data?.detail ||
+          err.message ||
+          "Something went wrong"
       );
     } finally {
       setSubmitting(false);
@@ -178,34 +129,16 @@ const Bookings = () => {
     try {
       setError("");
 
-      const token = getToken();
-
-      const response = await fetch(
-        `${API_URL}/api/bookings/${bookingId}/cancel`,
-        {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+      await api.put(
+        `/api/bookings/${bookingId}/cancel`
       );
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(
-          typeof data.detail === "string"
-            ? data.detail
-            : "Failed to cancel booking"
-        );
-      }
-
       await loadBookings();
-    } catch (err) {
+    } catch (err: any) {
       setError(
-        err instanceof Error
-          ? err.message
-          : "Something went wrong"
+        err.response?.data?.detail ||
+          err.message ||
+          "Something went wrong"
       );
     }
   };

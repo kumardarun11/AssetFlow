@@ -5,6 +5,7 @@ import {
   FaSyncAlt,
 } from "react-icons/fa";
 
+import api from "../../api/client";
 import "./Allocations.css";
 
 interface Allocation {
@@ -55,43 +56,20 @@ const Allocations = () => {
       setLoading(false);
       return;
     }
-
+  
     try {
       const [allocationResponse, usersResponse] =
         await Promise.all([
-          fetch(
-            "http://127.0.0.1:8000/api/allocations",
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          ),
-
-          fetch(
-            "http://127.0.0.1:8000/api/users",
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          ),
+          api.get("/api/allocations"),
+          api.get("/api/users"),
         ]);
-
-      if (!allocationResponse.ok) {
-        throw new Error("Failed to load allocations");
-      }
-
-      if (!usersResponse.ok) {
-        throw new Error("Failed to load employees");
-      }
-
+  
       const allocationData: Allocation[] =
-        await allocationResponse.json();
-
+        allocationResponse.data;
+  
       const usersData: User[] =
-        await usersResponse.json();
-
+        usersResponse.data;
+  
       setAllocations(allocationData);
       setUsers(usersData);
       setError("");

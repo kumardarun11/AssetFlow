@@ -13,6 +13,10 @@ import Maintenance from "./pages/Maintenance/Maintenance";
 import Notifications from "./pages/Notifications/Notifications";
 import ActivityLogs from "./pages/ActivityLogs/ActivityLogs";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import Departments from "./pages/Departments/Departments";
+import Categories from "./pages/Categories/Categories";
+import Assets from "./pages/Assets/Assets";
+import Audits from "./pages/Audits/Audits";
 
 function App() {
   return (
@@ -33,6 +37,11 @@ function App() {
           <Route path="/maintenance" element={<Maintenance />} />
           <Route path="/notifications" element={<Notifications />} />
           <Route path="/activity-logs" element={<ActivityLogs />} />
+          <Route path="/departments" element={<Departments />} />
+          <Route path="/categories" element={<Categories />} />
+          <Route path="/assets" element={<Assets />} />
+          <Route path="/audits" element={<Audits />} />
+
         </Route>
       </Route>
 

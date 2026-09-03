@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { FaUsers } from "react-icons/fa";
-
+import api from "../../api/client";
 import "./Employees.css";
 
 interface User {
@@ -35,32 +35,16 @@ const Employees = () => {
       setLoading(false);
       return;
     }
-
+  
     try {
       const [usersResponse, meResponse] = await Promise.all([
-        fetch("http://127.0.0.1:8000/api/users", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }),
-        fetch("http://127.0.0.1:8000/api/auth/me", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }),
+        api.get("/api/users"),
+        api.get("/api/auth/me"),
       ]);
-
-      if (!usersResponse.ok) {
-        throw new Error("Failed to load employees");
-      }
-
-      if (!meResponse.ok) {
-        throw new Error("Failed to load current user");
-      }
-
-      const usersData: User[] = await usersResponse.json();
-      const meData: User = await meResponse.json();
-
+    
+      const usersData: User[] = usersResponse.data;
+      const meData: User = meResponse.data;
+    
       setUsers(usersData);
       setCurrentUser(meData);
       setError("");
@@ -88,32 +72,16 @@ const Employees = () => {
     setUpdatingId(userId);
 
     try {
-      const response = await fetch(
-        `http://127.0.0.1:8000/api/users/${userId}/role`,
-        {
-          method: "PATCH",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ role }),
-        }
-      );
-
-      if (!response.ok) {
-        const data = await response.json();
-
-        throw new Error(
-          data.detail || "Failed to update role"
-        );
-      }
+      await api.patch(`/api/users/${userId}/role`, {
+        role,
+      });
 
       await fetchUsers();
-    } catch (err) {
+    } catch (err: any) {
       alert(
-        err instanceof Error
-          ? err.message
-          : "Failed to update role"
+        err.response?.data?.detail ||
+          err.message ||
+          "Failed to update role"
       );
     } finally {
       setUpdatingId(null);
@@ -122,43 +90,25 @@ const Employees = () => {
 
   const toggleStatus = async (user: User) => {
     if (!token) return;
-
+  
     const newStatus =
       user.status === "ACTIVE"
         ? "INACTIVE"
         : "ACTIVE";
-
+  
     setUpdatingId(user.id);
-
+  
     try {
-      const response = await fetch(
-        `http://127.0.0.1:8000/api/users/${user.id}/status`,
-        {
-          method: "PATCH",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            status: newStatus,
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        const data = await response.json();
-
-        throw new Error(
-          data.detail || "Failed to update status"
-        );
-      }
-
+      await api.patch(`/api/users/${user.id}/status`, {
+        status: newStatus,
+      });
+    
       await fetchUsers();
-    } catch (err) {
+    } catch (err: any) {
       alert(
-        err instanceof Error
-          ? err.message
-          : "Failed to update status"
+        err.response?.data?.detail ||
+          err.message ||
+          "Failed to update status"
       );
     } finally {
       setUpdatingId(null);

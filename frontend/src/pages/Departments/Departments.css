@@ -1,0 +1,175 @@
+.departments-page {
+  padding: 8px;
+}
+
+.departments-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.departments-header h1 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.departments-header p {
+  margin-top: 8px;
+  color: #6b7280;
+}
+
+.primary-btn,
+.secondary-btn,
+.edit-btn,
+.deactivate-btn {
+  border: none;
+  border-radius: 8px;
+  padding: 10px 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.primary-btn {
+  background: #2563eb;
+  color: white;
+}
+
+.primary-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.secondary-btn {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.edit-btn {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.deactivate-btn {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.department-form-card,
+.departments-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+}
+
+.department-form-card {
+  padding: 22px;
+  margin-bottom: 24px;
+}
+
+.department-form-card h2 {
+  margin-bottom: 20px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.form-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.form-grid input,
+.form-grid select {
+  padding: 11px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: white;
+  font-size: 14px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.departments-card {
+  overflow-x: auto;
+}
+
+.departments-card table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.departments-card th {
+  text-align: left;
+  padding: 15px 18px;
+  background: #f9fafb;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.departments-card td {
+  padding: 15px 18px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.table-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.status-badge.active {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.status-badge.inactive {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.empty-cell {
+  text-align: center;
+  color: #6b7280;
+  padding: 35px !important;
+}
+
+.departments-state {
+  padding: 40px;
+  text-align: center;
+}
+
+.departments-state.error {
+  color: #dc2626;
+}
+
+@media (max-width: 800px) {
+  .departments-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}

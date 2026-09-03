@@ -4,6 +4,7 @@ import { FaEnvelope, FaLock, FaArrowRight } from "react-icons/fa";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import api from "../../api/client";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -17,37 +18,22 @@ const Login = () => {
   const handleLogin = async () => {
     setError("");
     setLoading(true);
-
+  
     try {
-      const response = await fetch(
-        "http://127.0.0.1:8000/api/auth/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email,
-            password,
-          }),
-        }
-      );
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.detail || "Login failed");
-      }
-
-      localStorage.setItem("access_token", data.access_token);
-
+      const response = await api.post("/api/auth/login", {
+        email,
+        password,
+      });
+    
+      localStorage.setItem("access_token", response.data.access_token);
+    
       navigate("/dashboard");
-    } catch (err) {
-      if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError("Something went wrong");
-      }
+    } catch (err: any) {
+      setError(
+        err.response?.data?.detail ||
+          err.message ||
+          "Something went wrong"
+      );
     } finally {
       setLoading(false);
     }

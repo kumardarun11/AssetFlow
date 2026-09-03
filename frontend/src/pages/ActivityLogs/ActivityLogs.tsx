@@ -5,6 +5,8 @@ import {
   FaSyncAlt,
 } from "react-icons/fa";
 
+import api from "../../api/client";
+
 import "./ActivityLogs.css";
 
 interface ActivityLog {
@@ -16,8 +18,6 @@ interface ActivityLog {
   created_at: string;
 }
 
-const API_URL = "http://127.0.0.1:8000";
-
 const ActivityLogs = () => {
   const [logs, setLogs] = useState<ActivityLog[]>([]);
 
@@ -27,9 +27,6 @@ const ActivityLogs = () => {
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-
-  const getToken = () =>
-    localStorage.getItem("access_token");
 
   const loadLogs = useCallback(
     async (useFilters = false) => {
@@ -52,38 +49,24 @@ const ActivityLogs = () => {
           }
 
           if (action.trim()) {
-            params.append("action", action.trim());
+          params.append("action", action.trim());
           }
         }
 
         const query = params.toString();
 
-        const response = await fetch(
-          `${API_URL}/api/activity-logs/${
-            query ? `?${query}` : ""
-          }`,
-          {
-            headers: {
-              Authorization: `Bearer ${getToken()}`,
-            },
-          }
+        const response = await api.get(
+        `/api/activity-logs/${query ? `?${query}` : ""}`
         );
 
-        if (!response.ok) {
-          throw new Error(
-            "Failed to load activity logs"
-          );
-        }
-
-        const data: ActivityLog[] =
-          await response.json();
+        const data: ActivityLog[] = response.data;
 
         setLogs(data);
       } catch (err) {
         setError(
-          err instanceof Error
-            ? err.message
-            : "Something went wrong"
+        err instanceof Error
+          ? err.message
+          : "Something went wrong"
         );
       } finally {
         setLoading(false);
