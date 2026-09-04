@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 
 import AppLayout from "./components/layout/AppLayout";
+import Home from "./pages/Home/Home";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Employees from "./pages/Employees/Employees";
 import Login from "./pages/Login/Login";
@@ -21,7 +22,7 @@ import Audits from "./pages/Audits/Audits";
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Navigate to="/login" replace />} />
+      <Route path="/" element={<Home />} />
 
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
