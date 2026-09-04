@@ -2612,5 +2612,5 @@ Its modular architecture, RESTful APIs, role-based authorization, SQLAlchemy ORM
 * Production deployment on Vercel and Render
 * Cloud-ready and extensible architecture
 
-**AssetFlow transforms traditional asset tracking into a centralized, structured, and scalable digital management system.**
+> AssetFlow transforms traditional asset tracking into a centralized, structured, and scalable digital management system.
 ---
