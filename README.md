@@ -142,10 +142,6 @@ https://assetflow-backend-hruj.onrender.com/docs
 - Audit and discrepancy tracking
 - Cloud-ready architecture
 
-
-## 5. Project Metrics
-
-```markdown
 # 📈 Project Metrics
 
 | Metric | Value |
@@ -162,7 +158,7 @@ https://assetflow-backend-hruj.onrender.com/docs
 | 🗄️ Database Engine | TiDB Cloud |
 | 🌐 Frontend Status | Production Live |
 | 🚀 Backend Status | Production Live |
-```
+
 ---
 
 # 🚀 Project Status
@@ -574,7 +570,7 @@ Employee
       │
       ▼
 Active Allocation
-````
+```
 
 ---
 
